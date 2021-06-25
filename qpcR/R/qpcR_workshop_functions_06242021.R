@@ -24,7 +24,7 @@ pcR.summary <- function(file,
 ##Plot Mean Ct Values
 ##summary.file = .csv produced from pcR.summary function, .csv only
 pcR.meanplot <- function(summary.file,
-                         title = as.character(summary)) {summary.data <- read.csv(file = summary,
+                         title = as.character(summary.file)) {summary.data <- read.csv(file = summary.file,
                                                                                   header = T,
                                                                                   stringsAsFactors = F);
                          mean.plot <- ggplot2::ggplot(data = summary.data,
