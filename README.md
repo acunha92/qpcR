@@ -21,11 +21,11 @@ Requires: tidyverse, reshape
 
 
 
-	pcR.summary(),
+	pcR.summary(file, replicates),
 
-	pcR.meanplot(),
+	pcR.meanplot(summary.file, title),
 
-	pcR.expression(),
+	pcR.expression(summary.file, goi, hkg),
 
-	pcR.expressionplot()
+	pcR.expressionplot(expression.file, title)
 
