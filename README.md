@@ -12,7 +12,7 @@ To install:
 
 	devtools::install_github('acunha92/qpcR', subdir = 'qpcR')
 	
-	librar(qpcR)
+	library(qpcR)
 
 
 
