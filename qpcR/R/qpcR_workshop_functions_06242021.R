@@ -3,7 +3,7 @@
 
 ##Alexander Cunha
 ##qpcR Functions
-##6/24/2021
+##6/29/2021
 
 ##Summary function
 ##file = .csv raw data cols[Gene, Sample, Ct, Replicate]
@@ -81,28 +81,26 @@ pcR.meanplot <- function(summary.file,
 
 ##Relative Expression Added to DeltaCt?
 pcR.expression <- function(summary.file,
-                           goi,
-                           hkg) {summary.data <- read.csv(file = summary.file,
-                                                          header = T,
-                                                          stringsAsFactors = F);
-                           data.pivot <- tidyr::pivot_wider(summary.data,
-                                                            id_cols = Sample,
-                                                            names_from = Gene,
-                                                            values_from = Mean.Ct);
-                           cross <- purrr::cross2(.x = goi,
-                                                  .y = hkg);
-                           cross.frame <- as.data.frame(do.call(rbind, cross));
-                           delta.ct <- purrr::map2_df(.x = cross.frame[,1],
-                                                      .y = cross.frame[,2],
-                                                      .f = ~dplyr::mutate(data.pivot,
-                                                                          deltaCT = data.pivot[.x] - data.pivot[.y]));
-                           delta.express <- dplyr::mutate(delta.ct,
-                                                          RelExpr = 2^-(deltaCT))
-                           delta.final <- dplyr::select(delta.express, -goi, -hkg);
-                           delta.final$HKG <- paste(hkg);
-                           write.csv(delta.final,
-                                     file = paste0('pcRexpression_',hkg,Sys.Date(),'.csv'),
-                                     row.names = F)}
+                                goi,
+                                hkg) {summary.data <- read.csv(file = summary.file,
+                                                               header = T,
+                                                               stringsAsFactors = F);
+                                data.pivot <- tidyr::pivot_wider(summary.data,
+                                                                 id_cols = Sample,
+                                                                 names_from = Gene,
+                                                                 values_from = Mean.Ct);
+                                cross <- purrr::cross2(.x = goi,
+                                                       .y = hkg);
+                                cross.frame <- as.data.frame(do.call(rbind, cross));
+                                delta.ct <- purrr::map2_df(.x = cross.frame[,1],
+                                                           .y = cross.frame[,2],
+                                                           .f = ~dplyr::mutate(data.pivot,
+                                                                               deltaCT = data.pivot[.x] - data.pivot[.y])) |> dplyr::mutate(RelExpr = 2^-(deltaCT),
+                                                                                                                                            HKG = paste(hkg)) |> dplyr::select(-all_of(goi), -all_of(hkg)) |> as.matrix();
+                                utils::write.csv(x = delta.ct,
+                                                 file = paste0('qpcR_expression_',as.character(hkg),'_',Sys.Date(),'.csv'),
+                                                 row.names = F)}
+
 
 ##Plot Relative Expression
 ##expression.file = .csv produced from pcR.expression function, .csv only
