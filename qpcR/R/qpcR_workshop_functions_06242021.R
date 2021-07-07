@@ -19,7 +19,7 @@ pcR.summary <- function(file,
                                                            names_prefix = 'Rep_');
                         data.mutate <- dplyr::mutate(data.summary,
                                                      Mean.Ct = rowMeans(data.summary[,(3:(replicates+2))], na.rm = T),
-                                                     StdDev = apply(data.summary[,(3:(replicates+2))], 1, sd, na.rm = T)) |> dplyr::arrange(Sample, Gene);
+                                                     StdDev = apply(data.summary[,(3:(replicates+2))], 1, FUN = sd, na.rm = T)) |> dplyr::arrange(Sample, Gene);
                         write.csv(data.mutate, file = paste0("qpcR_summary_", Sys.Date(),".csv"), row.names = F)}
 
 ##Plot Mean Ct Values
