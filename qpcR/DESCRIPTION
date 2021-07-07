@@ -4,7 +4,7 @@ Title: quick pcR
 Version: 0.1.0
 Author: Alexander Cunha
 Maintainer: Alexander Cunha <acunhatuna@gmail.com>
-Description: A work-in-progress attempt at making qPCR analysis simple and quick.The input file required contains the following columns in any order: Gene, Sample, Ct, Replicate.    The input file must be saved as .csv. As of Version 0.1.0, the functions will write files into your current working directory.    Please take note of this and be careful when saving your data.    This package is a work-in-progress.
+Description: A work-in-progress attempt at making qPCR analysis simple and quick.The input file required contains the following columns in any order: Gene, Sample, Ct, Replicate. The input file must be saved as .csv. As of Version 0.1.0, the functions will write files into your current working directory. Please take note of this and be careful when saving your data. This package is a work-in-progress.
 License: Free-Use
 Encoding: UTF-8
 Imports: tidyverse,
