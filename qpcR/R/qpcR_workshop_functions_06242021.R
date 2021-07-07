@@ -3,7 +3,7 @@
 
 ##Alexander Cunha
 ##qpcR Functions
-##6/29/2021
+##07/07/2021
 
 ##Summary function
 ##file = .csv raw data cols[Gene, Sample, Ct, Replicate]
@@ -15,9 +15,10 @@ pcR.summary <- function(file,
                         data.summary <- tidyr::pivot_wider(data.og,
                                                            id_cols = c(Sample, Gene),
                                                            names_from = Replicate,
-                                                           values_from = Ct);
+                                                           values_from = Ct,
+                                                          names_prefix = 'Rep_');
                         data.mutate <- dplyr::mutate(data.summary,
-                                                     Mean.Ct = rowMeans(data.summary[,(3:(replicates+2))]),
+                                                     Mean.Ct = rowMeans(data.summary[,(3:(replicates+2)), na.rm = T]),
                                                      StdDev = apply(data.summary[,(3:(replicates+2))], 1, sd)) |> dplyr::arrange(Sample, Gene);
                         write.csv(data.mutate, file = paste0("qpcR_summary_", Sys.Date(),".csv"), row.names = F)}
 
